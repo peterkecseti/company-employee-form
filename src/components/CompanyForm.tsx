@@ -31,7 +31,7 @@ function CompanyForm({companies, setCompanies, setErrorMessage}: CompanyProps) {
     }
 
     return (
-            <div className="form company-form">
+            <div className="form">
                 <h3>Add a company</h3>
                 <input type="text" name="companyName" id="companyName" placeholder="Name" onChange={(e) => { company.name = e.target.value }} />
                 <br />

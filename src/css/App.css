@@ -10,6 +10,10 @@ input::-webkit-inner-spin-button{
     display: none;
 }
 
+html{
+    scroll-snap-type: y mandatory;
+}
+
 body{
     background: linear-gradient(45deg, rgba(50,43,112,1) 0%, rgba(66,105,152,1) 100%);
     background-repeat: no-repeat;
@@ -48,7 +52,9 @@ input[type='text'], input[type='number'], textarea, select, option{
     height: 30px;
     margin-top: 10px;
     margin-bottom: 10px;
-    opacity: 0.6
+    opacity: 0.6;
+    width: 60%;
+    border: none;
 }
 
 input::placeholder, textarea::placeholder{
@@ -109,27 +115,31 @@ button:not(:hover){
 }
 
 .visible{
-    display: initial;
+    opacity: 1;
     transition: .2s;
+    height: initial;
+    pointer-events: all;
 }
 
 .hidden{
-    display: none;
+    pointer-events: none;
+    opacity: 0;
     transition: .2s;
 }
 
 .container{
+    scroll-snap-align: start;
     text-align: center;
-    /* transform: translateY(50%); */
     height: 100vh;
 }
 
 .error-overlay{
-    position: absolute;
+    position: fixed;
+    float: top;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     margin: none;
-    top: 0;
+    bottom: 0;
     z-index: 100;
     backdrop-filter: blur(5px);
     transition: .2s;
@@ -157,39 +167,17 @@ button:not(:hover){
 }
 
 .form{
-    position: relative;
-    margin: auto;
-    margin-bottom: 20px;
-    width: 300px;
-    text-align: center;
-    padding-bottom: 20px;
-    padding-top: 10px;
     background-color: rgba(95, 109, 180, 0.5);
     border-radius: 15px;
-    height: 350px;
-}
-
-.forms-container{
-    transform: translateY(25%);
-    filter: drop-shadow(0px 0px 5px #263057);
-    display: grid;
-    height: 700px;
-    width: 700px;
     margin: auto;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    position: relative;
+    height: 400px;
+    width: 300px;
 }
 
 .employees-container{
     filter: drop-shadow(0px 0px 5px #263057);
     padding-top: 20px;
-}
-
-.title{
-    grid-column-start: 1;
-    grid-column-end: 3;
 }
 
 .scroll-button{

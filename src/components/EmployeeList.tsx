@@ -20,7 +20,7 @@ export default function EmployeeList({ companyListRef, executeScroll, employeeLi
 
                 <div className="card-container">
                     {employees.filter((employee) => selectedCompany === employee.GetCompanyId()).map((employee) => {
-                        return <div className="employee-card">
+                        return <div className="employee-card" key={employee.GetId()}>
                             <h3>{employee.GetName()}</h3>
                             <p>Age: {employee.GetAge()}</p>
                             <p>Contact: {employee.GetEmail()}</p>

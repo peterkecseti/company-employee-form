@@ -42,7 +42,7 @@ function EmployeeForm({setEmployees, employees, setCompanies, companies, setErro
     }
 
     return (
-            <div className="form employee-form">
+            <div className="form">
                 <h3>Hire an employee</h3>
                 <input type="text" name="employeeName" id="employeeName" placeholder="Name" onChange={(e) => { employee.name = e.target.value }} />
                 <br />
@@ -52,12 +52,18 @@ function EmployeeForm({setEmployees, employees, setCompanies, companies, setErro
                 </input>
                 <br />
                 <select name="employeeJobTitle" id="employeeJobTitle" onChange={(e) => { employee.jobTitle = e.target.value }}>
+                <option value="" id="defaultOption">Select a job title</option>
                     {JobTitles.map((jobTitle)=>{return <option value={jobTitle} key={jobTitle}>{jobTitle}</option>})}
                 </select>
                 <br />
-                <select name="selectCompany" id="selectCompany" onChange={(e)=>{ employee.company = parseInt(e.target.value) }}>
-                    {companies.map((company)=> {return <option value={company.GetId()} key={company.GetId()}>{company.GetName()}</option>})}
-                </select>
+                {companies.length === 0 ?
+                    <select>
+                        <option value="">No companies on record</option>
+                    </select> : 
+                    <select name="selectCompany" id="selectCompany" onChange={(e)=>{ employee.company = parseInt(e.target.value) }}>
+                        {companies.map((company)=> {return <option value={company.GetId()} key={company.GetId()}>{company.GetName()}</option>})}
+                    </select>}
+                
 
                 {/* <input type="file" accept="application/pdf" onChange={(e)=>{ employeeFormData.append("CV", e.target.files?[0])}}/> */}
                 <br />

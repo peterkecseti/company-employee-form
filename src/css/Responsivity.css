@@ -1,0 +1,74 @@
+@media only screen and (max-width: 719px) {
+
+    body {
+        overflow: auto;
+    }
+
+    .container {
+        height: 100%;
+    }
+
+    .scroll-button {
+        display: none;
+    }
+
+    .forms-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        width: 350px;
+        margin: auto;
+    }
+
+    .forms-container>h1 {
+        grid-column-start: initial;
+        grid-column-end: initial;
+    }
+
+    .form {
+        width: 80%;
+    }
+
+    .card-container {
+        width: 80%;
+        height: 80vh;
+        margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        width: 80%;
+        font-size: 16px;
+    }
+
+    textarea {
+        box-sizing: border-box;
+        height: 80px;
+        font-size: 16px;
+    }
+
+    textarea:focus {
+        height: 100px;
+    }
+
+    h3 {
+        font-size: 25px;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    .forms-container {
+        filter: drop-shadow(0px 0px 5px #263057);
+        width: 800px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+
+    }
+
+    .forms-container>h1 {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+}

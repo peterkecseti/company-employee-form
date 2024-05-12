@@ -1,4 +1,5 @@
-import './App.css';
+import './css/App.css';
+import './css/Responsivity.css'
 import { useEffect, useRef, useState } from 'react';
 import CompanyForm from './components/CompanyForm';
 import EmployeeForm from './components/EmployeeForm';
@@ -17,7 +18,7 @@ function App() {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [companies, setCompanies] = useState<Company[]>([]);
 
-  const [selectedCompany, setSelectedCompany] = useState<number>(0);
+  const [selectedCompany, setSelectedCompany] = useState<number>(-1);
 
   const companyListRef = useRef<HTMLDivElement>(null);
   const employeeListRef = useRef<HTMLDivElement>(null);
@@ -52,6 +53,7 @@ function App() {
     }
   }, [errorMessage])
 
+
   function ExecuteScroll(destination: React.RefObject<HTMLDivElement>) {
     if (companyListRef) {
       destination.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
@@ -66,15 +68,16 @@ function App() {
           <button className='form-button' onClick={() => { setError(false) }}>OK</button>
         </div>
       </div>
-
+      
+      
       <div className='container' ref={formsRef}>
         <button onClick={GenerateDummyData}>random</button>
-        <div className="forms-container">
-          <h1 className='title'>Company Employee form</h1>
-          <CompanyForm companies={companies} setCompanies={setCompanies} setErrorMessage={setErrorMessage} />
-          <EmployeeForm employees={employees} setEmployees={setEmployees} companies={companies} setCompanies={setCompanies} setErrorMessage={setErrorMessage} />
-          <i className="gg-chevron-double-down-o scroll-button" onClick={() => { ExecuteScroll(companyListRef) }}></i>
-        </div>
+          <h1>Company Employee form</h1>
+          <div className="forms-container">
+            <CompanyForm companies={companies} setCompanies={setCompanies} setErrorMessage={setErrorMessage} />
+            <EmployeeForm employees={employees} setEmployees={setEmployees} companies={companies} setCompanies={setCompanies} setErrorMessage={setErrorMessage} />
+            <i className="gg-chevron-double-down-o scroll-button" onClick={() => { ExecuteScroll(companyListRef) }}></i>
+          </div>
       </div>
 
       <div className="container" ref={companyListRef}>
@@ -88,7 +91,7 @@ function App() {
                                                                           setSelectedCompany={setSelectedCompany} />}
         </div>
       </div>
-      <EmployeeList executeScroll={ExecuteScroll} employeeListRef={employeeListRef} companyListRef={companyListRef} employees={employees} companies={companies} selectedCompany={selectedCompany}></EmployeeList>
+      {selectedCompany === -1 ? '' : <EmployeeList executeScroll={ExecuteScroll} employeeListRef={employeeListRef} companyListRef={companyListRef} employees={employees} companies={companies} selectedCompany={selectedCompany}></EmployeeList>}
     </div>
   );
 }

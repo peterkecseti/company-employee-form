@@ -1,0 +1,18 @@
+export default async function SubmitHandler(postData : any, endpoint : string){
+    console.log(postData)
+    try{
+        const rawresponse = await fetch(`/api/${endpoint}`,{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'ContentType': 'application/json'
+            },
+            body: postData
+        })
+        .then((res) => {console.log(res.status)})
+    }
+    catch(e){
+        console.log(e)
+    }
+    
+}

@@ -1,0 +1,258 @@
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+
+*:focus{
+    outline: none;
+}
+
+*::-webkit-scrollbar{
+    display: none;
+}
+
+body{
+    background: linear-gradient(45deg, rgba(50,43,112,1) 0%, rgba(66,105,152,1) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    scrollbar-width: none;
+    overflow: hidden;
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+h1, h3{
+    color:white;
+    opacity: 0.8;
+    font-weight: 300;
+}
+
+textarea{
+    resize: none;
+    border: none;
+    padding: 10px;
+    height: 200px;
+}
+
+input{
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+input[type='text'], input[type='number'], textarea, select, option{
+    color: white;
+    filter: drop-shadow(0px 0px 3px #263057);
+    background-color: #283556;
+    border-radius: 5px;
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    opacity: 0.6
+}
+
+input::placeholder, textarea::placeholder{
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+input:focus, textarea:focus{
+    height: 60px;
+    width: 80%;
+    opacity: 1;
+    transition: .2s;
+}
+
+input:focus{
+    font-size: 20px;
+    transition: .2s;
+}
+
+input:hover, textarea:hover{
+    opacity: 1;
+    transition: .2s;
+}
+input:not(:focus), textarea:not(focus){
+    width: initial;
+    transition: .1s;
+}
+
+button{
+    background-color: #263057;
+    filter: drop-shadow(0px 0px 5px #263057);
+    opacity: 0.5;
+    color: white;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+}
+
+button:hover{
+    opacity: 1;
+    transition: .2s;
+}
+
+button.form-button{
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+button:not(:hover){
+    opacity: .5;
+    transition: .1s;
+}
+
+.visible{
+    display: initial;
+    transition: .2s;
+}
+
+.hidden{
+    display: none;
+    transition: .2s;
+}
+
+.container{
+    text-align: center;
+    /* transform: translateY(50%); */
+    height: 100vh;
+}
+
+.error-overlay{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    margin: none;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+    transition: .2s;
+}
+
+.error-popup{
+    position: relative;
+    color: red;
+    background-color: white;
+    text-align: center;
+    margin: auto;
+    width: 350px;
+    height: 150px;
+    border-radius: 20px;
+    filter: drop-shadow(0px 0px 5px #263057);
+    opacity: .5;
+    font-weight: 500;
+    top: 30%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.form{
+    position: relative;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 300px;
+    text-align: center;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    background-color: rgba(95, 109, 180, 0.5);
+    border-radius: 15px;
+    height: 350px;
+}
+
+.forms-container{
+    transform: translateY(25%);
+    filter: drop-shadow(0px 0px 5px #263057);
+    display: grid;
+    height: 700px;
+    width: 700px;
+    margin: auto;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.employees-container{
+    filter: drop-shadow(0px 0px 5px #263057);
+    padding-top: 20px;
+}
+
+.title{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.scroll-button{
+    margin: auto;
+    transform: scale(1.5);
+    filter: invert(80%);
+    fill: red;
+    opacity: 0.5;
+    margin-top: 20px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.scroll-button:hover{
+    opacity: 1;
+    transition: .2s;
+}
+
+.continue-button:not(:hover){
+    opacity: 0.5;
+    transition: .2s;
+}
+
+.employee-card:not(:focus){
+    background-color: rgba(95, 109, 180, 0.5);
+    border-radius: 15px;
+    margin: 25px;
+    width: 200px;
+    min-height: 150px;
+    height: auto;
+    color: white;
+    transition: .2s;
+    padding: 0 10px 0 10px;
+    align-self: flex-start;
+}
+
+.employee-card:hover{
+    background-color: rgba(95, 109, 180, 0.9);
+    transition: .2s;
+}
+
+.employee-card > h3 {
+    font-weight: 400;
+}
+
+.card-container{
+    background-color: rgba(95, 109, 180, 0.5);
+    border-radius: 15px;
+    margin: auto;
+    width: 650px;
+    height: 800px;
+    display: flex;
+    overflow-y: scroll;
+    flex-flow: row wrap;
+    justify-content: center;
+    word-wrap: break-word;
+}
+
+/* .scroll-box{
+    height: 300px;
+    max-width: 800px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+} */

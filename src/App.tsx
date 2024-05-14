@@ -20,6 +20,8 @@ function App() {
 
   const [selectedCompany, setSelectedCompany] = useState<number>(-1);
 
+  const [files, setFiles] = useState<File[]>([]);
+
   const companyListRef = useRef<HTMLDivElement>(null);
   const employeeListRef = useRef<HTMLDivElement>(null);
   const formsRef = useRef<HTMLDivElement>(null);
@@ -75,7 +77,7 @@ function App() {
           <h1>Company Employee form</h1>
           <div className="forms-container">
             <CompanyForm companies={companies} setCompanies={setCompanies} setErrorMessage={setErrorMessage} />
-            <EmployeeForm employees={employees} setEmployees={setEmployees} companies={companies} setCompanies={setCompanies} setErrorMessage={setErrorMessage} />
+            <EmployeeForm employees={employees} setEmployees={setEmployees} companies={companies} setErrorMessage={setErrorMessage} setFiles={setFiles} files={files} />
             <i className="gg-chevron-double-down-o scroll-button" onClick={() => { ExecuteScroll(companyListRef) }}></i>
           </div>
       </div>

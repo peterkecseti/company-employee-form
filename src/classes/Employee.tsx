@@ -8,26 +8,30 @@ export default class Employee {
     private id: number;
     private companyId: number;
 
-    constructor(name: string, email: string, jobTitle: string, age: number, CV: string, id: number, companyId: number) {
-        if(name === ""){
+    constructor(name: string, email: string, jobTitle: string | number, age: number, CV: string, id: number, companyId: number) {
+        if(name == ""){
             throw new Error("Provide a valid name");
         }
 
-        if(email === ""){
+        if(email == ""){
             throw new Error("Provide a valid email address"); //TODO: ezt megcsinalni normalisan
         }
 
-        if(jobTitle === ""){
+        if(jobTitle === undefined){
             throw new Error("Set a valid job title");
         }
 
         if(age < 18){
             throw new Error("The employee must be over 18");
         }
+
+        if(companyId == -1){
+            throw new Error("Select a company")
+        }
         
         this.name = name;
         this.email = email;
-        this.jobTitle = jobTitle;
+        this.jobTitle = String(jobTitle);
         this.age = age;
         this.CV = CV;
         this.id = id;

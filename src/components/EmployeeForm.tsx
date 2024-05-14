@@ -1,74 +1,106 @@
 import Employee from "../classes/Employee";
 import Company from "../classes/Company";
-// import SubmitHandler from "../classes/SubmitHandler";
+import SubmitHandler from "../functions/SubmitHandler";
+import { useState } from "react";
+import { AgeChange, CompanyChange, EmailChange, JobTitleChange, NameChange } from "../functions/FormChangeHandlers";
 
 type EmployeeFormProps = {
     setEmployees: React.Dispatch<React.SetStateAction<Employee[]>>
     employees: Employee[]
 
-    setCompanies: React.Dispatch<React.SetStateAction<Company[]>>
     companies: Company[]
 
-    setErrorMessage : React.Dispatch<React.SetStateAction<string>>
+    setFiles: React.Dispatch<React.SetStateAction<File[]>>
+    files: File[];
+
+    setErrorMessage: React.Dispatch<React.SetStateAction<string>>
 }
 
-function EmployeeForm({setEmployees, employees, setCompanies, companies, setErrorMessage}: EmployeeFormProps) {
+
+function EmployeeForm({ setEmployees, employees, companies, setErrorMessage, setFiles, files }: EmployeeFormProps) {
     const JobTitles = ["Accountant", "Software Developer", "Software Tester", "Manager"]
 
-    let employee = {
-        "name": "",
-        "email": "",
-        "jobTitle": "",
-        "age": 0,
-        "CV": "",
-        "id": 1,
-        "company": 0
-    }
+    const [employee, setEmployee] = useState<{ [key: string]: string | number }>(
+        {
+        name: "",
+        email: "",
+        JobTitle: "",
+        age: 0,
+        CV: "",
+        id: -1,
+        company: -1 })
 
     async function SubmitForm() {
         try {
-            if(companies.length === 0){
+            if (companies.length === 0) {
                 setErrorMessage("You must create a company before hiring an employee!")
+                return;
             }
 
-            const newEmployee: Employee = new Employee(employee.name, employee.email, employee.jobTitle, employee.age, "", employee.id, employee.company)
+            const newEmployee: Employee = new Employee(
+
+                String(employee.name),
+                String(employee.email),
+                (employee.jobTitle),
+                Number(employee.age),
+                "",
+                employees.length,
+                Number(employee?.company))
+
+            console.log(newEmployee)
+
             setEmployees(employees => [...(employees ?? []), newEmployee])
-            // SubmitHandler(employee, "employee")
+
+
+            // SubmitHandler(employee, "employee", files[employee.id])
+            // console.log(typeof(files[employee.id]))
         }
         catch (e: any) {
-             //TODO: ebbol hibauzenetet avanzsalni
             setErrorMessage(e.message)
         }
     }
 
-    return (
-            <div className="form">
-                <h3>Hire an employee</h3>
-                <input type="text" name="employeeName" id="employeeName" placeholder="Name" onChange={(e) => { employee.name = e.target.value }} />
-                <br />
-                <input type="text" name="employeeEmail" id="employeeEmail" placeholder="Email" onChange={(e) => { employee.email = e.target.value }} />
-                <br />
-                <input type="number" name="employeeAge" id="employeeAge" placeholder="Age" onChange={(e) => { employee.age = parseInt(e.target.value) }}>
-                </input>
-                <br />
-                <select name="employeeJobTitle" id="employeeJobTitle" onChange={(e) => { employee.jobTitle = e.target.value }}>
-                <option value="" id="defaultOption">Select a job title</option>
-                    {JobTitles.map((jobTitle)=>{return <option value={jobTitle} key={jobTitle}>{jobTitle}</option>})}
-                </select>
-                <br />
-                {companies.length === 0 ?
-                    <select>
-                        <option value="">No companies on record</option>
-                    </select> : 
-                    <select name="selectCompany" id="selectCompany" onChange={(e)=>{ employee.company = parseInt(e.target.value) }}>
-                        {companies.map((company)=> {return <option value={company.GetId()} key={company.GetId()}>{company.GetName()}</option>})}
-                    </select>}
-                
+    function HandleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const files = e.target.files
+        if (files && files[0].type === "application/pdf") {
+            setFiles((prevFiles) => [...prevFiles, files[0]])
+            console.log(files)
+        }
+        else {
+            setErrorMessage("The CV must be in PDF format")
+        }
+    }
 
-                {/* <input type="file" accept="application/pdf" onChange={(e)=>{ employeeFormData.append("CV", e.target.files?[0])}}/> */}
-                <br />
-                <button className="form-button" id="submit" onClick={() => { SubmitForm() }}>submit</button>
-            </div>
+    return (
+        <div className="form">
+            <h3>Hire an employee</h3>
+            <input type="text" name="employeeName" id="employeeName" placeholder="Name" onChange={(e) => { NameChange(e, employees, setEmployee) }} />
+            <br />
+            <input type="text" name="employeeEmail" id="employeeEmail" placeholder="Email" onChange={(e) => { EmailChange(e, employees, setEmployee) }} />
+            <br />
+            <input type="number" name="employeeAge" id="employeeAge" placeholder="Age" onChange={(e) => { AgeChange(e, employees, setEmployee) }}>
+            </input>
+            <br />
+            <select name="employeeJobTitle" id="employeeJobTitle" onChange={(e) => { JobTitleChange(e, employees, setEmployee) }}>
+                <option value="">Select a job title</option>
+                {JobTitles.map((jobTitle) => { return <option value={jobTitle} key={jobTitle}>{jobTitle}</option> })}
+            </select>
+            <br />
+
+            {companies.length === 0 ?
+                <select>
+                    <option value="">No companies on record</option>
+                </select>
+                :
+                <select name="selectCompany" id="selectCompany" onChange={(e) => { CompanyChange(e, employees, setEmployee) }}>
+                    <option value="">Select a company</option>
+                    {companies.map((company) => { return <option value={company.GetId()} key={company.GetId()}>{company.GetName()}</option> })}
+                </select>}
+
+            <input type="file" accept="application/pdf" onChange={(e) => { HandleFileChange(e) }} />
+            <br />
+            <button className="form-button" id="submit" onClick={() => { SubmitForm() }}>Submit</button>
+        </div>
     )
 }
 

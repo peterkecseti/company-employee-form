@@ -76,11 +76,12 @@ input:focus{
     transition: .2s;
 }
 
-input:hover, textarea:hover{
+input:hover, textarea:hover, select:hover{
     opacity: 1;
     transition: .2s;
 }
-input:not(:focus), textarea:not(focus){
+
+input:not(:focus), textarea:not(:focus){
     width: initial;
     transition: .1s;
 }

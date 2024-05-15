@@ -217,6 +217,11 @@ button:not(:hover){
 
 .employee-card > h3 {
     font-weight: 400;
+    pointer-events: none;
+}
+
+.employee-card > p {
+    pointer-events: none;
 }
 
 .card-container{

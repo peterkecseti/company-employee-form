@@ -9,12 +9,13 @@ export default class Employee {
     private companyId: number;
 
     constructor(name: string, email: string, jobTitle: string | number, age: number, CV: string, id: number, companyId: number) {
+        const emailRegex : RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
         if(name == ""){
             throw new Error("Provide a valid name");
         }
 
-        if(email == ""){
-            throw new Error("Provide a valid email address"); //TODO: ezt megcsinalni normalisan
+        if(!emailRegex.test(email)){
+            throw new Error("Provide a valid email address");
         }
 
         if(jobTitle === undefined){

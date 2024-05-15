@@ -7,12 +7,13 @@ export default class Company {
     private id: number;
 
     constructor(name: string, email: string, numberOfEmployees: number, description: string, id: number) {
+        const emailRegex : RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
         if(name === ""){
             throw new Error("Provide a valid company name");
         }
 
-        if(email === ""){
-            throw new Error("Provide a valid email address"); //TODO: ezt megcsinalni normalisan
+        if(!emailRegex.test(email)){
+            throw new Error("Provide a valid email address");
         }
 
         if(numberOfEmployees < 1 || numberOfEmployees > 100){
@@ -35,6 +36,6 @@ export default class Company {
     }
 
     public GetEmployeeCount(): number{
-        return this.numberOfEmployees
+        return this.numberOfEmployees;
     }
 }

@@ -73,7 +73,7 @@ function App() {
       
       
       <div className='container' ref={formsRef}>
-        <button onClick={GenerateDummyData}>random</button>
+        <button onClick={GenerateDummyData}>Dummy data</button>
           <h1>Company Employee form</h1>
           <div className="forms-container">
             <CompanyForm companies={companies} setCompanies={setCompanies} setAlertMessage={setAlertMessage} />

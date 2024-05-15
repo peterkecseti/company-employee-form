@@ -1,7 +1,7 @@
 import Employee from "../classes/Employee";
 import Company from "../classes/Company";
 import SubmitHandler from "../functions/SubmitHandler";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AgeChange, CompanyChange, EmailChange, FileChange, JobTitleChange, NameChange } from "../functions/FormChangeHandlers";
 
 type EmployeeFormProps = {
@@ -19,6 +19,7 @@ type EmployeeFormProps = {
 
 function EmployeeForm({ setEmployees, employees, companies, setAlertMessage: setAlertMessage, setFiles, files }: EmployeeFormProps) {
     const JobTitles = ["Accountant", "Software Developer", "Software Tester", "Manager"]
+    const fileSelectRef = useRef<HTMLInputElement>(null);
 
     const [employee, setEmployee] = useState<{ [key: string]: string | number }>(
         {
@@ -91,8 +92,9 @@ function EmployeeForm({ setEmployees, employees, companies, setAlertMessage: set
                     <option value="">Select a company</option>
                     {companies.map((company) => { return <option value={company.GetId()} key={company.GetId()}>{company.GetName()}</option> })}
                 </select>}
-
-            <input type="file" accept="application/pdf" onChange={(e) => { FileChange(e, files, setFiles, employees.length) }} />
+            <br />
+            <button className="" onClick={()=>{fileSelectRef.current?.click()}}>Select CV</button>
+            <input type="file" accept="application/pdf" ref={fileSelectRef} onChange={(e) => { FileChange(e, files, setFiles, employees.length) }} />
             <br />
             <button className="form-button" id="submit" onClick={() => { SubmitForm() }}>Submit</button>
         </div>

@@ -60,29 +60,38 @@ input::placeholder, textarea::placeholder{
     font-style: normal;
 }
 
-input:focus, textarea:focus{
+input[type="text"]:focus, input[type="number"]:focus, textarea:focus{
     height: 60px;
     width: 80%;
     opacity: 1;
     transition: .2s;
 }
 
-input:focus{
+input[type="text"]:focus{
     font-size: 20px;
     transition: .2s;
 }
 
-input:hover, textarea:hover, select:hover{
+input[type="text"]:hover, input[type="number"]:hover, textarea:hover, select:hover{
     opacity: 1;
     transition: .2s;
 }
 
-input:not(:focus), textarea:not(:focus){
+input[type="file"]{
+    display: none;
+}
+
+/* input[type="file"]{
+    width: 100px;
+    height: 40px;
+} */
+
+input[type="text"]:not(:focus), input[type="number"]:not(:focus), textarea:not(:focus){
     width: initial;
     transition: .1s;
 }
 
-button{
+button, input[type="file"]{
     background-color: #263057;
     filter: drop-shadow(0px 0px 5px #263057);
     opacity: 0.5;
@@ -167,7 +176,7 @@ button:not(:hover){
     border-radius: 15px;
     margin: auto;
     position: relative;
-    height: 400px;
+    height: 430px;
     width: 300px;
 }
 

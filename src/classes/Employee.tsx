@@ -10,7 +10,7 @@ export default class Employee {
 
     constructor(name: string, email: string, jobTitle: string | number, age: number, CV: string, id: number, companyId: number) {
         const emailRegex : RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-        if(name == ""){
+        if(name === ""){
             throw new Error("Provide a valid name");
         }
 
@@ -26,7 +26,7 @@ export default class Employee {
             throw new Error("The employee must be over 18");
         }
 
-        if(companyId == -1){
+        if(companyId === -1){
             throw new Error("Select a company")
         }
         

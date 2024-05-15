@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useReducer, useRef, useState } from "react"
+import { RefObject, useRef,} from "react"
 import Employee from "../classes/Employee"
 import Company from "../classes/Company"
 
@@ -50,7 +50,6 @@ export default function EmployeeList({ companyListRef, executeScroll, employeeLi
                     })}
                 </div>
                 <a ref={downloadRef}></a>
-
             </div>
         </div>
     )

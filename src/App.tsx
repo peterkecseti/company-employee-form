@@ -13,7 +13,7 @@ function App() {
   const [initFinished, setInitFinished] = useState<boolean>(false);
 
   const [error, setError] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("initial message");
+  const [alertMessage, setAlertMessage] = useState<string>("initial message");
 
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -32,7 +32,7 @@ function App() {
 
     for (let i = 0; i < 10; i++) {
       dummycompanies.push(
-        new Company(`Company${i}`, `email@company${i}.com`, 10, "description...", i)
+        new Company(`Company${i}`, `email@company${i}.com`, 100, "description...", i)
       )
     }
 
@@ -47,13 +47,13 @@ function App() {
   }
 
   useEffect(() => {
-    if (initFinished) {
+    if (initFinished && alertMessage != "") {
       setError(true)
     }
     else {
       setInitFinished(true)
     }
-  }, [errorMessage])
+  }, [alertMessage])
 
 
   function ExecuteScroll(destination: React.RefObject<HTMLDivElement>) {
@@ -66,8 +66,8 @@ function App() {
     <div>
       <div className={`error-overlay ${error ? 'visible' : 'hidden'}`}>
         <div className="error-popup">
-          <p>{errorMessage}</p>
-          <button className='form-button' onClick={() => { setError(false) }}>OK</button>
+          <p>{alertMessage}</p>
+          <button className='form-button' onClick={() => { setAlertMessage(""); setError(false) }}>OK</button>
         </div>
       </div>
       
@@ -76,8 +76,8 @@ function App() {
         <button onClick={GenerateDummyData}>random</button>
           <h1>Company Employee form</h1>
           <div className="forms-container">
-            <CompanyForm companies={companies} setCompanies={setCompanies} setErrorMessage={setErrorMessage} />
-            <EmployeeForm employees={employees} setEmployees={setEmployees} companies={companies} setErrorMessage={setErrorMessage} setFiles={setFiles} files={files} />
+            <CompanyForm companies={companies} setCompanies={setCompanies} setAlertMessage={setAlertMessage} />
+            <EmployeeForm employees={employees} setEmployees={setEmployees} companies={companies} setAlertMessage={setAlertMessage} setFiles={setFiles} files={files} />
             <i className="gg-chevron-double-down-o scroll-button" onClick={() => { ExecuteScroll(companyListRef) }}></i>
           </div>
       </div>
@@ -93,7 +93,7 @@ function App() {
                                                                           setSelectedCompany={setSelectedCompany} />}
         </div>
       </div>
-      {selectedCompany === -1 ? '' : <EmployeeList executeScroll={ExecuteScroll} employeeListRef={employeeListRef} companyListRef={companyListRef} employees={employees} companies={companies} selectedCompany={selectedCompany}></EmployeeList>}
+      {selectedCompany === -1 ? '' : <EmployeeList executeScroll={ExecuteScroll} employeeListRef={employeeListRef} companyListRef={companyListRef} employees={employees} companies={companies} selectedCompany={selectedCompany} files={files} setAlertMessage={setAlertMessage}></EmployeeList>}
     </div>
   );
 }

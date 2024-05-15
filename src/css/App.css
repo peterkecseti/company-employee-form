@@ -10,10 +10,6 @@ input::-webkit-inner-spin-button{
     display: none;
 }
 
-html{
-    scroll-snap-type: y mandatory;
-}
-
 body{
     background: linear-gradient(45deg, rgba(50,43,112,1) 0%, rgba(66,105,152,1) 100%);
     background-repeat: no-repeat;
@@ -35,7 +31,7 @@ textarea{
     resize: none;
     border: none;
     padding: 10px;
-    height: 200px;
+    height: 00px;
 }
 
 input{
@@ -129,7 +125,6 @@ button:not(:hover){
 }
 
 .container{
-    scroll-snap-align: start;
     text-align: center;
     height: 100vh;
 }
@@ -148,7 +143,7 @@ button:not(:hover){
 
 .error-popup{
     position: relative;
-    color: red;
+    color: #263057;
     background-color: white;
     text-align: center;
     margin: auto;
@@ -211,7 +206,7 @@ button:not(:hover){
     height: auto;
     color: white;
     transition: .2s;
-    padding: 0 10px 0 10px;
+    padding: 10px 10px 10px 10px;
     align-self: flex-start;
 }
 
@@ -229,19 +224,10 @@ button:not(:hover){
     border-radius: 15px;
     margin: auto;
     width: 650px;
-    height: 800px;
+    height: 80vh;
     display: flex;
     overflow-y: scroll;
     flex-flow: row wrap;
     justify-content: center;
     word-wrap: break-word;
 }
-
-/* .scroll-box{
-    height: 300px;
-    max-width: 800px;
-    width: 100%;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-} */

@@ -2,7 +2,7 @@ import Employee from "../classes/Employee";
 import Company from "../classes/Company";
 import SubmitHandler from "../functions/SubmitHandler";
 import { useState } from "react";
-import { AgeChange, CompanyChange, EmailChange, JobTitleChange, NameChange } from "../functions/FormChangeHandlers";
+import { AgeChange, CompanyChange, EmailChange, FileChange, JobTitleChange, NameChange } from "../functions/FormChangeHandlers";
 
 type EmployeeFormProps = {
     setEmployees: React.Dispatch<React.SetStateAction<Employee[]>>
@@ -13,11 +13,11 @@ type EmployeeFormProps = {
     setFiles: React.Dispatch<React.SetStateAction<File[]>>
     files: File[];
 
-    setErrorMessage: React.Dispatch<React.SetStateAction<string>>
+    setAlertMessage: React.Dispatch<React.SetStateAction<string>>
 }
 
 
-function EmployeeForm({ setEmployees, employees, companies, setErrorMessage, setFiles, files }: EmployeeFormProps) {
+function EmployeeForm({ setEmployees, employees, companies, setAlertMessage: setAlertMessage, setFiles, files }: EmployeeFormProps) {
     const JobTitles = ["Accountant", "Software Developer", "Software Tester", "Manager"]
 
     const [employee, setEmployee] = useState<{ [key: string]: string | number }>(
@@ -33,41 +33,36 @@ function EmployeeForm({ setEmployees, employees, companies, setErrorMessage, set
     async function SubmitForm() {
         try {
             if (companies.length === 0) {
-                setErrorMessage("You must create a company before hiring an employee!")
-                return;
+                setAlertMessage("You must create a company before hiring an employee!")
+                return
             }
-
+            if(files[employees.length] == undefined){
+                setAlertMessage("You must upload your CV")
+                return
+            }
             const newEmployee: Employee = new Employee(
 
                 String(employee.name),
                 String(employee.email),
                 (employee.jobTitle),
                 Number(employee.age),
-                "",
+                files[employees.length].name,
                 employees.length,
                 Number(employee?.company))
 
-            console.log(newEmployee)
-
-            setEmployees(employees => [...(employees ?? []), newEmployee])
-
-
-            // SubmitHandler(employee, "employee", files[employee.id])
-            // console.log(typeof(files[employee.id]))
+            SubmitHandler(employee, "employee", files[employees.length]).then((code)=>{
+                code = 200; // Endpoint hiányában mindig hibát adna, ezért felülírásra kerül
+                if(code != 200){
+                    setAlertMessage("Something went wrong")
+                    return
+                }
+                setEmployees(employees => [...(employees ?? []), newEmployee])
+                setAlertMessage("Employee hired successfully")
+            })
+            
         }
         catch (e: any) {
-            setErrorMessage(e.message)
-        }
-    }
-
-    function HandleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const files = e.target.files
-        if (files && files[0].type === "application/pdf") {
-            setFiles((prevFiles) => [...prevFiles, files[0]])
-            console.log(files)
-        }
-        else {
-            setErrorMessage("The CV must be in PDF format")
+            setAlertMessage(e.message)
         }
     }
 
@@ -97,7 +92,7 @@ function EmployeeForm({ setEmployees, employees, companies, setErrorMessage, set
                     {companies.map((company) => { return <option value={company.GetId()} key={company.GetId()}>{company.GetName()}</option> })}
                 </select>}
 
-            <input type="file" accept="application/pdf" onChange={(e) => { HandleFileChange(e) }} />
+            <input type="file" accept="application/pdf" onChange={(e) => { FileChange(e, files, setFiles, employees.length) }} />
             <br />
             <button className="form-button" id="submit" onClick={() => { SubmitForm() }}>Submit</button>
         </div>

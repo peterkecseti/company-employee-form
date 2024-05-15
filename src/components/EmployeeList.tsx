@@ -1,4 +1,4 @@
-import { RefObject } from "react"
+import { RefObject, useEffect, useReducer, useRef, useState } from "react"
 import Employee from "../classes/Employee"
 import Company from "../classes/Company"
 
@@ -9,9 +9,29 @@ type EmployeeListProps = {
     employees: Employee[]
     companies: Company[]
     selectedCompany: number
+    files: File[]
+    setAlertMessage: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function EmployeeList({ companyListRef, executeScroll, employeeListRef, companies, employees, selectedCompany }: EmployeeListProps) {
+export default function EmployeeList({ companyListRef, executeScroll, employeeListRef, companies, employees, selectedCompany, files, setAlertMessage: setAlertMessage}: EmployeeListProps) {
+    const downloadRef = useRef<HTMLAnchorElement>(null);
+
+
+
+    function DownloadCV(id: number){
+        if(!files[id]){
+            setAlertMessage("This employee hasn't uploaded a CV yet!")
+            return
+        }
+        const selectedFile = files[id]
+        const fileUrl = URL.createObjectURL(new Blob([selectedFile]))
+        const link = downloadRef.current!
+        link.href = fileUrl;
+        link.download = selectedFile.name
+        link.click()
+        URL.revokeObjectURL(fileUrl)
+    }
+
     return (
         <div className="container" ref={employeeListRef}>
             <div className="employees-container">
@@ -25,9 +45,11 @@ export default function EmployeeList({ companyListRef, executeScroll, employeeLi
                             <p>Age: {employee.GetAge()}</p>
                             <p>Contact: {employee.GetEmail()}</p>
                             <p>Role at company: {employee.GetJobTitle()}</p>
+                            <button onClick={()=>{DownloadCV(employee.GetId())}}>Download CV</button>
                         </div>
                     })}
                 </div>
+                <a ref={downloadRef}></a>
 
             </div>
         </div>

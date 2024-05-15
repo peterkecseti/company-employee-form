@@ -11,6 +11,9 @@ This page lets you select the company of the employees you want to see.
 - ### Employee data page
 Here you can see individual employees' data provided at hiring, eg. email address, and CV.
 
+##Classes
+For further usage of data provided in the forms, each record of companies and employees stored in respective class instances.
+Class constructors handle form data validation.
 ## API endpoints
 
 Calling the API points is handled by the SubmitHandler function.
